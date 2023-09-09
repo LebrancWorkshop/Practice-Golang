@@ -8,7 +8,7 @@ import (
 
 func main() {
 	c := colly.NewCollector(
-		colly.AllowedDomains("github.com"),
+		colly.AllowedDomains("fandom.com"),
 	)
 
 	c.OnRequest(func(r *colly.Request) {
@@ -24,5 +24,9 @@ func main() {
 		fmt.Println("error", err.Error())
 	})
 
-	c.Visit("https://github.com/lebrancconvas")
+	c.OnHTML(".popular-wikis-title", func(h *colly.HTMLElement) {
+		fmt.Println("Content: ", h.Text)
+	})
+
+	c.Visit("https://www.fandom.com/")
 }
